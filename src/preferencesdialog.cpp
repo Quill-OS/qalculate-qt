@@ -51,10 +51,10 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) : QDialog(parent) {
 	QWidget *w2 = new QWidget(this);
 	QWidget *w3 = new QWidget(this);
 	QWidget *w4 = new QWidget(this);
-	tabs->addTab(w1, tr("Look && Feel"));
-	tabs->addTab(w2, tr("Numbers && Operators"));
-	tabs->addTab(w3, tr("Units && Currencies"));
-	tabs->addTab(w4, tr("Parsing && Calculation"));
+    tabs->addTab(w1, tr("L&&F"));
+    tabs->addTab(w2, tr("N&&O"));
+    tabs->addTab(w3, tr("U&&C"));
+    tabs->addTab(w4, tr("P&&C"));
 	QCheckBox *box; QVBoxLayout *l; QGridLayout *l2; QComboBox *combo;
 	int r = 0;
 	l2 = new QGridLayout(w1); l2->setSizeConstraint(QLayout::SetFixedSize);

@@ -523,10 +523,10 @@ KeypadWidget::KeypadWidget(QWidget *parent) : QWidget(parent) {
 		OPERATOR_BUTTON("E", 3, c);
 		button->setToolTip("10<sup>x</sup>");
 	}
-	button->setText("EXP");
+    button->setRichText("<font size=2><b>EXP</b></font>");
 	c++;
 	ITEM_BUTTON(settings->vans[0], "ANS", 3, c);
-	button = new KeypadButton("ANS", this);
+    button = new KeypadButton("<font size=2><b>ANS</b></font>", this);
 	button->setProperty(BUTTON_DATA, QVariant::fromValue((void*) settings->vans[0])); \
 	button->setToolTip(QString::fromStdString(settings->vans[0]->title(true, settings->printops.use_unicode_signs)), tr("Previous result (static)"));
 	connect(button, SIGNAL(clicked()), this, SLOT(onItemButtonClicked()));
@@ -536,7 +536,7 @@ KeypadWidget::KeypadWidget(QWidget *parent) : QWidget(parent) {
 	OPERATOR_BUTTON3(settings->multiplicationSign(), "&", "<<", 1, c);
 	button->setToolTip(tr("Multiplication"), tr("Bitwise AND"), tr("Bitwise Shift"));
 	multiplicationButton = button;
-	delButton = new KeypadButton(LOAD_ICON("edit-delete"), this, true);
+    delButton = new KeypadButton(LOAD_ICON("edit-clear"), this, true);
 	connect(delButton, SIGNAL(clicked()), this, SIGNAL(delClicked()));
 	connect(delButton, SIGNAL(clicked2()), this, SIGNAL(backspaceClicked()));
 	connect(delButton, SIGNAL(clicked3()), this, SIGNAL(backspaceClicked()));
@@ -557,7 +557,7 @@ KeypadWidget::KeypadWidget(QWidget *parent) : QWidget(parent) {
 	divisionButton = button;
 	button->setProperty(BUTTON_DATA, settings->divisionSign(false));
 	button->setToolTip(tr("Division"), tr("Bitwise OR"), tr("Bitwise NOT"));
-	acButton = new KeypadButton(LOAD_ICON("edit-clear"), this);
+    acButton = new KeypadButton("<b>AC<b>", this);
 	acButton->setToolTip(tr("Clear expression"));
 	connect(acButton, SIGNAL(clicked()), this, SIGNAL(clearClicked()));
 	connect(acButton, SIGNAL(clicked2()), this, SIGNAL(clearClicked()));
@@ -932,8 +932,8 @@ void KeypadWidget::updateSymbols() {
 }
 void KeypadWidget::changeEvent(QEvent *e) {
 	if(e->type() == QEvent::PaletteChange || e->type() == QEvent::ApplicationPaletteChange) {
-		acButton->setIcon(LOAD_ICON("edit-clear"));
-		delButton->setIcon(LOAD_ICON("edit-delete"));
+        acButton->setRichText("<b>AC</b>");
+        delButton->setIcon(LOAD_ICON("edit-clear"));
 		backButton->setIcon(LOAD_ICON("go-back"));
 		forwardButton->setIcon(LOAD_ICON("go-forward"));
 		customEditButton->setIcon(LOAD_ICON("document-edit"));

@@ -8,12 +8,12 @@ isEmpty(DESKTOP_DIR) {
 isEmpty(DESKTOP_ICON_DIR) {
 	DESKTOP_ICON_DIR = $$PREFIX/share/icons
 }
-unix:!equals(COMPILE_RESOURCES,"yes"):!android:!macx {
-	isEmpty(TRANSLATIONS_DIR) {
-		TRANSLATIONS_DIR = $$PREFIX/share/qalculate-qt/translations
-	}
-	DEFINES += TRANSLATIONS_DIR=\\\"$$TRANSLATIONS_DIR\\\"
-}
+#unix:!equals(COMPILE_RESOURCES,"yes"):!android:!macx {
+#	isEmpty(TRANSLATIONS_DIR) {
+#	TRANSLATIONS_DIR = $$PREFIX/share/qalculate-qt/translations
+#	}
+#	DEFINES += TRANSLATIONS_DIR=\\\"$$TRANSLATIONS_DIR\\\"
+#}
 isEmpty(MAN_DIR) {
 	MAN_DIR = $$PREFIX/share/man
 }
@@ -44,7 +44,7 @@ HEADERS += src/calendarconversiondialog.h src/csvdialog.h src/dataseteditdialog.
 
 SOURCES += src/calendarconversiondialog.cpp src/csvdialog.cpp src/dataseteditdialog.cpp src/datasetsdialog.cpp src/expressionedit.cpp src/fpconversiondialog.cpp src/functioneditdialog.cpp src/functionsdialog.cpp src/historyview.cpp src/itemproxymodel.cpp src/keypadwidget.cpp src/main.cpp src/matrixwidget.cpp src/percentagecalculationdialog.cpp src/periodictabledialog.cpp src/plotdialog.cpp src/preferencesdialog.cpp src/qalculateqtsettings.cpp src/qalculatewindow.cpp src/unitsdialog.cpp src/uniteditdialog.cpp src/unknowneditdialog.cpp src/variableeditdialog.cpp src/variablesdialog.cpp
 
-LANGUAGES = ca de es fr nl pt_BR ru sl sv zh_CN
+#LANGUAGES = ca de es fr nl pt_BR ru sl sv zh_CN
 
 #parameters: var, prepend, append
 defineReplace(prependAll) {
@@ -52,47 +52,47 @@ defineReplace(prependAll) {
 	return($$result)
 }
 
-TRANSLATIONS = 	translations/qalculate-qt_ca.ts \
-		translations/qalculate-qt_de.ts \
-		translations/qalculate-qt_es.ts \
-		translations/qalculate-qt_fr.ts \
-		translations/qalculate-qt_nl.ts \
-		translations/qalculate-qt_pt_BR.ts \
-		translations/qalculate-qt_ru.ts \
-		translations/qalculate-qt_sl.ts \
-		translations/qalculate-qt_sv.ts \
-		translations/qalculate-qt_zh_CN.ts
+#TRANSLATIONS = 	translations/qalculate-qt_ca.ts \
+#		translations/qalculate-qt_de.ts \
+#		translations/qalculate-qt_es.ts \
+#		translations/qalculate-qt_fr.ts \
+#		translations/qalculate-qt_nl.ts \
+#		translations/qalculate-qt_pt_BR.ts \
+#		translations/qalculate-qt_ru.ts \
+#		translations/qalculate-qt_sl.ts \
+#		translations/qalculate-qt_sv.ts \
+#		translations/qalculate-qt_zh_CN.ts
 
-TRANSLATIONS = $$prependAll(LANGUAGES, $$PWD/translations/qalculate-qt_, .ts)
-TRANSLATIONS_FILES =
-qtPrepareTool(LRELEASE, lrelease) for(tsfile, TRANSLATIONS) {
-	qmfile = $$shadowed($$tsfile)
-	qmfile ~= s,.ts$,.qm,
-	qmdir = $$dirname(qmfile)
-	exists($$qmdir) {
-		mkpath($$qmdir)|error("Aborting.")
-	}
-	command = $$LRELEASE -removeidentical $$tsfile -qm $$qmfile
-	system($$command)|error("Failed to run: $$command")
-	TRANSLATIONS_FILES += $$qmfile
-}
+#TRANSLATIONS = $$prependAll(LANGUAGES, $$PWD/translations/qalculate-qt_, .ts)
+#TRANSLATIONS_FILES =
+#qtPrepareTool(LRELEASE, lrelease) for(tsfile, TRANSLATIONS) {
+#	qmfile = $$shadowed($$tsfile)
+#	qmfile ~= s,.ts$,.qm,
+#	qmdir = $$dirname(qmfile)
+#	exists($$qmdir) {
+#		mkpath($$qmdir)|error("Aborting.")
+#	}
+#	command = $$LRELEASE -removeidentical $$tsfile -qm $$qmfile
+#	system($$command)|error("Failed to run: $$command")
+#	TRANSLATIONS_FILES += $$qmfile
+#}
 
 unix:!equals(COMPILE_RESOURCES,"yes"):!android:!macx {
 
 	target.path = $$PREFIX/bin
 
-	qm.files = 	translations/qalculate-qt_ca.qm \
-			translations/qalculate-qt_de.qm \
-			translations/qalculate-qt_es.qm \
-			translations/qalculate-qt_fr.qm \
-			translations/qalculate-qt_nl.qm \
-			translations/qalculate-qt_pt_BR.qm \
-			translations/qalculate-qt_ru.qm \
-			translations/qalculate-qt_sl.qm \
-			translations/qalculate-qt_sv.qm \
-			translations/qalculate-qt_zh_CN.qm
+#	qm.files = 	translations/qalculate-qt_ca.qm \
+#			translations/qalculate-qt_de.qm \
+#			translations/qalculate-qt_es.qm \
+#			translations/qalculate-qt_fr.qm \
+#			translations/qalculate-qt_nl.qm \
+#			translations/qalculate-qt_pt_BR.qm \
+#			translations/qalculate-qt_ru.qm \
+#			translations/qalculate-qt_sl.qm \
+#			translations/qalculate-qt_sv.qm \
+#			translations/qalculate-qt_zh_CN.qm
 		
-	qm.path = $$TRANSLATIONS_DIR
+#	qm.path = $$TRANSLATIONS_DIR
 
 	desktop.files = data/io.github.Qalculate.qalculate-qt.desktop
 	desktop.path = $$DESKTOP_DIR
@@ -113,7 +113,7 @@ unix:!equals(COMPILE_RESOURCES,"yes"):!android:!macx {
 	appiconsvg.files = data/scalable/qalculate-qt.svg
 	appiconsvg.path = $$DESKTOP_ICON_DIR/hicolor/scalable/apps
 
-	INSTALLS += 	target desktop appdata qm \
+        INSTALLS += 	target desktop appdata \
 			appicon16 appicon22 appicon32 appicon64 appicon128 appiconsvg
 
 	RESOURCES = icons.qrc flags.qrc
